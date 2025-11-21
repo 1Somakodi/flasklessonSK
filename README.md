@@ -2,25 +2,6 @@
 
 This repository contains a simple Flask project demonstrating how to render an HTML website using Flask. It is intended as a lesson for beginners to understand the basics of Flask routing, templates, and static files.
 
-## Project Structure
-
-yourproject/
-│
-├── app.py                 # Main Flask application
-├── templates/             # HTML templates
-│   ├── index.html         # Home page
-│   ├── about.html         # About page
-│   └── contact.html       # Contact page
-│
-└── static/                # Static files (CSS, JS, Images, Libraries)
-    ├── css/style.css
-    ├── img/
-    │   ├── somakodi logo.png
-    │   └── favicon.ico
-    ├── lib/
-    │   └── owlcarousel/assets/owl.carousel.min.css
-    └── js/main.js
-
 ## Prerequisites
 
 * Python 3.7+
