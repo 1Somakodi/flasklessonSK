@@ -2,7 +2,6 @@
 
 This repository contains a simple Flask project demonstrating how to render an HTML website using Flask. It is intended as a lesson for beginners to understand the basics of Flask routing, templates, and static files.
 
-
 ## Project Structure
 
 yourproject/
