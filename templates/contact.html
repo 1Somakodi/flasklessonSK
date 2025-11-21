@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Somakodi</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/somakodi logo.png') }}">
+
+    <!-- Favicon -->
+    <link href="{{ url_for('static', filename='img/favicon.ico') }}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Navbar Start -->
+    <div class="container-fluid">
+        <div class="row border-top px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block"></div>
+
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav py-0">
+                            <a href="{{ url_for('home') }}" class="nav-item nav-link">Home</a>
+                            <a href="{{ url_for('about') }}" class="nav-item nav-link">About</a>
+                            <a href="{{ url_for('contact') }}" class="nav-item nav-link active">Contact</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="container-fluid page-header" style="margin-bottom: 0px;">
+        <div class="container">
+            <div class="d-flex flex-column justify-content-center" style="min-height: 300px">
+                <h3 class="display-4 text-white text-uppercase">Contact</h3>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Contact Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Contact</h5>
+                <h1>Contact For Any Query</h1>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form bg-secondary rounded p-5">
+                        <div id="success"></div>
+
+                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                            <div class="control-group">
+                                <input type="text" class="form-control border-0 p-4" id="name" placeholder="Your Name" required />
+                                <p class="help-block text-danger"></p>
+                            </div>
+
+                            <div class="control-group">
+                                <input type="email" class="form-control border-0 p-4" id="email" placeholder="Your Email" required />
+                                <p class="help-block text-danger"></p>
+                            </div>
+
+                            <div class="control-group">
+                                <input type="text" class="form-control border-0 p-4" id="subject" placeholder="Subject" required />
+                                <p class="help-block text-danger"></p>
+                            </div>
+
+                            <div class="control-group">
+                                <textarea class="form-control border-0 py-3 px-4" rows="5" id="message" placeholder="Message" required></textarea>
+                                <p class="help-block text-danger"></p>
+                            </div>
+
+                            <div class="text-center">
+                                <button class="btn btn-primary py-3 px-5" type="submit">Send Message</button>
+                                <button class="btn btn-primary py-3 px-5" type="button">13 Inquiries</button>
+                            </div>
+                        </form>
+
+                        <script>
+                            document.getElementById("contactForm").addEventListener("submit", function (e) {
+                                e.preventDefault();
+
+                                const data = {
+                                    name: document.getElementById("name").value,
+                                    email: document.getElementById("email").value,
+                                    subject: document.getElementById("subject").value,
+                                    message: document.getElementById("message").value
+                                };
+
+                                fetch("https://sheetdb.io/api/v1/1uta3soel3mkj", {
+                                    method: "POST",
+                                    body: JSON.stringify({ data: data }),
+                                    headers: { "Content-Type": "application/json" }
+                                })
+                                    .then(response => response.json())
+                                    .then(json => {
+                                        document.getElementById("contactForm").reset();
+                                        document.getElementById("success").innerHTML = `
+                                            <div class="alert alert-success">
+                                                <strong>Message sent!</strong> We'll get back to you shortly.
+                                            </div>`;
+                                    })
+                                    .catch(error => {
+                                        document.getElementById("success").innerHTML = `
+                                            <div class="alert alert-danger">
+                                                <strong>Sorry!</strong> There was a problem. Please try again later.
+                                            </div>`;
+                                        console.error("Error submitting contact form:", error);
+                                    });
+                            });
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Contact End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5">
+        <div class="row pt-5">
+            <div class="col-lg-7 col-md-12">
+                <div class="row">
+
+                    <div class="col-md-6 mb-5">
+                        <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Get In Touch</h5>
+                        <p><i class="fa fa-map-marker-alt mr-2"></i>Delta Towers, Waiyaki Way, Nairobi</p>
+                        <p><i class="fa fa-envelope mr-2"></i>info.somakodi@gmail.com</p>
+
+                        <div class="d-flex justify-content-start mt-4">
+                            <a class="btn btn-outline-light btn-square mr-2" href="https://x.com/somakodi"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-outline-light btn-square mr-2" href="https://www.facebook.com/Somakodischool"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-square mr-2" href="https://www.linkedin.com/company/105460723/"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-outline-light btn-square" href="https://www.instagram.com/somakodi.ke/"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-md-12 mb-5">
+                <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Somakodi</h5>
+                <p>With a focus on practical, hands-on learning, we empower our students to tackle real-world challenges and unleash their full potential. Through immersive projects, workshops, and mentorship, we foster a collaborative environment where creativity and innovation flourish.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5">
+        <div class="row">
+
+            <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
+                <p class="m-0 text-white">&copy; <a href="#">somakodi</a></p>
+            </div>
+
+            <div class="col-lg-6 text-center text-md-right">
+                <ul class="nav d-inline-flex">
+                    <li class="nav-item"><a class="nav-link text-white py-0">CODE</a></li>
+                    <li class="nav-item"><a class="nav-link text-white py-0">CREATE</a></li>
+                    <li class="nav-item"><a class="nav-link text-white py-0">INNOVATE</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js') }}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{{ url_for('static', filename='mail/jqBootstrapValidation.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='mail/contact.js') }}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- HubSpot Embed -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/146535815.js"></script>
+
+</body>
+
+</html>
