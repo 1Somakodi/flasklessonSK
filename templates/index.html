@@ -7,23 +7,25 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
+
+    <!-- Facebook domain verification -->
     <meta name="facebook-domain-verification" content="jglo0m221n66g8751ceum457cxpsls" />
 
-    <!-- Favicon -->
+    <!-- Favicon: use Flask's url_for to reference static files -->
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/somakodi logo.png') }}">
     <link href="{{ url_for('static', filename='img/favicon.ico') }}" rel="icon">
 
-    <!-- Google Web Fonts -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
+    <!-- Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
+    <!-- Libraries Stylesheets -->
     <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
 
-    <!-- Customized Bootstrap Stylesheet -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
@@ -40,6 +42,7 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav py-0">
+                            <!-- Flask url_for ensures proper routing -->
                             <a href="{{ url_for('home') }}" class="nav-item nav-link active">Home</a>
                             <a href="{{ url_for('about') }}" class="nav-item nav-link">About</a>
                             <a href="{{ url_for('contact') }}" class="nav-item nav-link">Contact</a>
@@ -62,16 +65,17 @@
     </div>
     <!-- Header End -->
 
-    <!-- Registration Start -->
+    <!-- Registration Form Start -->
     <div id="registration-form" class="container-fluid bg-registration py-5" style="margin: top 0px;">
         <div class="container py-5">
             <div class="row align-items-center">
+                <!-- Left info column -->
                 <div class="col-lg-7 mb-5 mb-lg-0">
                     <div class="mb-4">
                         <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Ready to Enroll</h5>
                     </div>
                     <p class="text-white">Welcome our next cohort of tech professionals!</p>
-                    <p class="text-white">Don’t miss this chance to learn in-demand tech skills from industry experts at a fraction of the cost. Spaces are limited, so secure your spot today and start your journey toward a high-impact tech career!</p>
+                    <p class="text-white">Don’t miss this chance to learn in-demand tech skills from industry experts at a fraction of the cost.</p>
                     <p class="text-white">Benefit from:</p>
                     <ul class="list-inline text-white m-0">
                         <li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Financial Aid</li>
@@ -80,23 +84,46 @@
                     </ul>
                 </div>
 
+                <!-- Registration Form (Right Column) -->
                 <div class="col-lg-5">
                     <div class="card border-0">
                         <div class="card-header bg-light text-center p-4">
                             <h1 class="m-0">Sign Up Now</h1>
                         </div>
                         <div class="card-body rounded-bottom bg-primary p-5">
-                            <form id="enrollForm">
+
+                            <!-- 
+                                Flask Form:
+                                - action="{{ url_for('submit') }}" means the form data will be sent to the Flask route named 'submit'.
+                                - method="POST" means data will be sent as a POST request (not visible in URL, safer for sensitive data)
+                            -->
+                            <form id="enrollForm" action="{{ url_for('submit') }}" method="POST">
+
+                                <!-- Name Field -->
                                 <div class="form-group">
+                                    <!-- 
+                                        - name="fullName" matches the key Flask will use to get the value from request.form.get('fullName')
+                                        - required ensures the user cannot submit the form empty
+                                    -->
                                     <input type="text" name="fullName" class="form-control border-0 p-4" placeholder="Your name" required />
                                 </div>
+
+                                <!-- Email Field -->
                                 <div class="form-group">
                                     <input type="email" name="email" class="form-control border-0 p-4" placeholder="Your email" required />
                                 </div>
+
+                                <!-- Phone Field -->
                                 <div class="form-group">
                                     <input type="tel" name="phone" class="form-control border-0 p-4" placeholder="Your Phone no." required />
                                 </div>
+
+                                <!-- Course Selection -->
                                 <div class="form-group">
+                                    <!-- 
+                                        - name="course" matches Flask request.form.get('course')
+                                        - The <option> values are what will be submitted to the database
+                                    -->
                                     <select name="course" class="custom-select border-0 px-4" style="height: 47px;" required>
                                         <option value="" disabled selected>Select a course</option>
                                         <option value="Software Engineering">Software Engineering</option>
@@ -106,52 +133,37 @@
                                         <option value="Python & ML">Python & ML</option>
                                     </select>
                                 </div>
+
+                                <!-- Submit Buttons -->
                                 <div>
+                                    <!-- 
+                                        1. Sign Up Button:
+                                        - type="submit" triggers the form to send data to Flask route 'submit'
+                                    -->
                                     <button class="btn btn-dark btn-block border-0 py-3" type="submit">Sign Up Now</button>
-                                    <button class="btn btn-dark btn-block border-0 py-3" type="submit">20 Applied</button>
+
+                                    <!-- 
+                                        2. Display Application Count:
+                                        - {{ count }} is a Flask variable passed from render_template
+                                        - type="button" ensures it does NOT submit the form
+                                        - Dynamically shows number of students who have applied
+                                    -->
+                                    <button class="btn btn-dark btn-block border-0 py-3" type="button">{{ count }} Applied</button>
                                 </div>
+
                             </form>
-
-                            <script>
-                                document.getElementById("enrollForm").addEventListener("submit", function(e) {
-                                    e.preventDefault();
-                                    
-                                    const form = e.target;
-                                    const data = {
-                                        fullName: form.fullName.value,
-                                        email: form.email.value,
-                                        phone: form.phone.value,
-                                        course: form.course.value
-                                    };
-
-                                    fetch("https://sheetdb.io/api/v1/0rg78l1ae5qj9", {
-                                        method: "POST",
-                                        body: JSON.stringify({ data: data }),
-                                        headers: { "Content-Type": "application/json" }
-                                    })
-                                    .then(res => res.json())
-                                    .then(() => {
-                                        alert("Enrollment successful!");
-                                        form.reset();
-                                    })
-                                    .catch(err => {
-                                        alert("Something went wrong.");
-                                        console.error(err);
-                                    });
-                                });
-                            </script>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Registration End -->
+    <!-- Registration Form End -->
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5">
         <div class="row pt-5">
+            <!-- Contact info -->
             <div class="col-lg-7 col-md-12">
                 <div class="row">
                     <div class="col-md-6 mb-5">
@@ -159,6 +171,7 @@
                         <p><i class="fa fa-map-marker-alt mr-2"></i>Delta Towers, Waiyaki Way, Nairobi</p>
                         <p><i class="fa fa-envelope mr-2"></i>info.somakodi@gmail.com</p>
                         <div class="d-flex justify-content-start mt-4">
+                            <!-- Social links -->
                             <a class="btn btn-outline-light btn-square mr-2" href="https://x.com/somakodi"><i class="fab fa-twitter"></i></a>
                             <a class="btn btn-outline-light btn-square mr-2" href="https://www.facebook.com/Somakodischool"><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-outline-light btn-square mr-2" href="https://www.linkedin.com/company/105460723/admin/feed/following/"><i class="fab fa-linkedin-in"></i></a>
@@ -168,6 +181,7 @@
                 </div>
             </div>
 
+            <!-- About info -->
             <div class="col-lg-5 col-md-12 mb-5">
                 <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Somakodi</h5>
                 <p>With a focus on practical, hands-on learning, we empower our students to tackle real-world challenges and unleash their full potential.</p>
@@ -191,7 +205,7 @@
     </div>
     <!-- Footer End -->
 
-    <!-- Back to Top -->
+    <!-- Back to Top Button -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
     <!-- JavaScript Libraries -->
@@ -200,14 +214,14 @@
     <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
     <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js') }}"></script>
 
-    <!-- Contact Javascript -->
+    <!-- Contact form JS -->
     <script src="{{ url_for('static', filename='mail/jqBootstrapValidation.min.js') }}"></script>
     <script src="{{ url_for('static', filename='mail/contact.js') }}"></script>
 
-    <!-- Template Javascript -->
+    <!-- Custom JS -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
-    <!-- HubSpot -->
+    <!-- HubSpot script -->
     <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/146535815.js"></script>
 
 </body>

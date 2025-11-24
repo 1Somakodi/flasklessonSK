@@ -64,7 +64,7 @@ Students can enhance this project by:
 
 ## Author
 
-**Somakodi School** – [https://somakodi.ke](https://somakodi.ke)
+**Somakodi School** – [https://somakodi.org](https://somakodi.org)
 
 ---
 
